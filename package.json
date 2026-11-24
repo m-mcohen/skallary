@@ -7,6 +7,7 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "dev": "concurrently -k \"vite\" \"node --import tsx server/index.ts\"",
+    "setup": "npm ci --ignore-scripts && node scripts/check-setup-db.cjs && vite build",
     "build": "tsc && vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",

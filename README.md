@@ -22,37 +22,60 @@ Please read this before you install.
 
 ## Install
 
-### 1. Install Node.js
+Skallary runs on 64-bit Windows and needs **Node.js 22 or newer (tested with 26)**, 64-bit (x64). If you already have Node.js 22, update to the latest 22 release before running setup.
 
-Node.js is a free program that runs the app behind the scenes. You install it once.
+### 1. Install Node.js and Git
 
-1. Go to https://nodejs.org/en/download.
-2. Install **Node.js 22 or newer (tested with 26), 64-bit** from nodejs.org: the Windows installer that says "x64". It has to be the 64-bit version because the app's database part comes pre-built for 64-bit Windows. The app was tested with Node.js v26.13.0 (x64) on Windows 11.
-3. Run the installer and accept the standard choices. You do not need the optional "tools for native modules" (Python and the Visual Studio build tools).
+Node.js runs the app. Git downloads it and lets you get updates. Install each tool once. You can use either option for each one.
 
-### 2. Download the app
+To open a terminal, open the Windows Start menu, type **Terminal**, and press Enter. In Windows Terminal, use a **PowerShell** tab. You can also search for **Windows PowerShell** and open it directly.
 
-1. On this page, open **Releases** and download the newest file named `skallary-<version>.zip`.
-2. Use the ZIP from Releases. The green "Code" button gives you the source files, which are not the prepared package. The ZIP already has the app's pages built and includes everything the app needs to run, so you do not need to build or download anything else. That is why the download is larger than the source files (about 9 MB).
+**Node.js**
 
-### 3. Unzip it
+- In Windows Terminal or PowerShell, run:
+  ```powershell
+  winget install --id OpenJS.NodeJS.LTS --exact --architecture x64
+  ```
+- Or download the **Windows Installer (.msi)** for **x64** from [nodejs.org](https://nodejs.org/en/download). Use the standard choices and leave the optional tools for native modules unchecked.
 
-1. Right-click the ZIP and choose **Extract All**.
-2. Pick a short folder you will not lose, for example `C:\Skallary`.
+**Git**
 
-### 4. Start it
+- In Windows Terminal or PowerShell, run:
+  ```powershell
+  winget install --id Git.Git --exact
+  ```
+- Or download the Windows installer from [git-scm.com](https://git-scm.com/download/win) and use the standard choices.
 
-1. Open the folder and double-click `Start.cmd`.
-2. A black window opens and starts the app. Nothing is downloaded or installed, so it takes a few seconds, even the first time.
-3. Windows may show a blue box that says "Windows protected your PC". Choose **More info**, then **Run anyway**. The start file is a short text file you can open and read.
-4. Your browser opens the app. Keep the black window open while you use the app. Close it to stop the app.
+Close the terminal and open a new PowerShell window. Run these one at a time to check that both are installed:
+
+```powershell
+node -v
+git --version
+```
+
+### 2. Download and set up Skallary
+
+In PowerShell, run each line in order. The first line goes to your Windows user folder, where Git will create a folder named **skallary**.
+
+```powershell
+cd $env:USERPROFILE
+git clone https://github.com/m-mcohen/skallary
+cd skallary
+npm run setup
+```
+
+Setup downloads the app's packages and builds its screens. It may take a few minutes. It needs no Python or build tools. If PowerShell says running scripts is disabled, use `npm.cmd run setup`.
+
+### 3. Start Skallary
+
+In File Explorer, open the **skallary** folder and double-click **Start.cmd**. Or run `.\Start.cmd` from PowerShell in that folder. The app opens in your browser. Keep the Command Prompt window open while you use the app. Close it to stop the app.
 
 ## Try it with sample data first
 
 You can look around before you set anything up. The sample is a made-up household. Nothing in it is real, and it cannot be linked to a bank.
 
-1. Do the install steps above, up to and including "Unzip it".
-2. Double-click `Start-Sample.cmd`.
+1. Follow the install steps above through `npm run setup`.
+2. In the **skallary** folder, double-click **Start-Sample.cmd**. In PowerShell, run `.\Start-Sample.cmd`.
 3. The first time, it builds the sample data in a few seconds. A black window shows its progress.
 4. Your browser opens with the sample household. The startup window closes on its own. A separate, minimized Command Prompt window keeps the sample running.
 5. To stop the sample, open its minimized Command Prompt window from the taskbar and close it. Closing the browser tab leaves the sample running.
@@ -171,20 +194,21 @@ To restore, close the app and copy the folder back to the same place.
 
 ## Updating
 
-Your budget and bank records are not in the app folder. They are in your own Windows user folder (`%LOCALAPPDATA%\finance`, see "Where your data lives" above), so replacing the app folder loses nothing.
+Your budget and bank records live in your Windows app data folder (see "Where your data lives"). Updating the app leaves that folder in place.
 
-1. Close the app (close the black window).
-2. Download the newest ZIP from Releases.
-3. Extract it into a new, empty folder, for example `C:\Skallary-new`. Do not unzip it over the old app folder: files the new version no longer uses would stay behind and can break it.
-4. Double-click `Start.cmd` in the new folder and check that your budget is there. The new ZIP brings everything it needs, so nothing is downloaded.
-5. Close the app, then delete the old app folder: right-click it and choose **Delete**. If you like the old folder name, rename the new folder to it.
+1. Close the Command Prompt window that is running Skallary. If the sample is running, close its window too.
+2. In File Explorer, open the **skallary** folder. Click the address bar, type `powershell`, and press Enter.
+3. Run these commands one at a time:
+   ```powershell
+   git pull
+   npm run setup
+   ```
+   If PowerShell says running scripts is disabled, use `npm.cmd run setup`.
+4. Double-click **Start.cmd** to open the updated app.
 
 ## Known issues
 
-1. `Start-Sample.cmd` stops with a message if your Windows user folder name contains an apostrophe (for example `O'Brien`). It fails safely: nothing is opened and nothing is changed.
-2. Windows may warn about the start files, as described in the install steps.
-3. If your Node.js is older than version 22 or is not the 64-bit one, `Start.cmd` stops and tells you which one to install.
-4. The app runs only on 64-bit Windows, because the ZIP includes its database part pre-built for that system.
+The sample launcher cannot run if your Windows app data folder path contains an apostrophe. The regular app can still run.
 
 ## License
 
