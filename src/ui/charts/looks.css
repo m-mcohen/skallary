@@ -1,0 +1,41 @@
+/* Look A, "Ink and signal": the only place chart colours are written down. ChartBase reads these
+   through readPalette; nothing else in chart code holds a colour. Light first, then dark. */
+.chart-look-ink-and-signal {
+  --chart-ink: #14161A;
+  --chart-ink-2: #5A6169;
+  --chart-line: #E4E2DD;
+  --chart-grid: #ECEAE6;
+  --chart-card: #FFFFFF;
+  --chart-blue: #1668B8;
+  --chart-red: #A93226;
+  --chart-green: #2E8B57;
+  --chart-flow: #C9CDD3;
+  --chart-c1: #2a78d6;
+  --chart-c2: #eb6834;
+  --chart-c3: #1baf7a;
+  --chart-c4: #eda100;
+  --chart-c5: #e87ba4;
+  --chart-c6: #008300;
+  --chart-c7: #6250d6;
+  --chart-c8: #e34948;
+}
+
+.dark .chart-look-ink-and-signal {
+  --chart-ink: #FAFAFA;
+  --chart-ink-2: #A1A1A1;
+  --chart-line: #2A2A2A;
+  --chart-grid: #242424;
+  --chart-card: #171717;
+  --chart-blue: #3987e5;
+  --chart-red: #e66767;
+  --chart-green: #0ca30c;
+  --chart-flow: #3A3D42;
+  --chart-c1: #3987e5;
+  --chart-c2: #d95926;
+  --chart-c3: #199e70;
+  --chart-c4: #c98500;
+  --chart-c5: #d55181;
+  --chart-c6: #0ca30c;
+  --chart-c7: #9085e9;
+  --chart-c8: #e66767;
+}

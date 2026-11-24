@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+. "$(dirname "$0")/dispatch.sh"
+run_hook "pre-commit" "$@"

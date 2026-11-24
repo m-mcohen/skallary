@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="256" height="256">
+  <!-- Skallary: "Columns at dawn". Ink tile, paper marks. Keep in step with scripts/make-icon.py. -->
+  <rect width="24" height="24" rx="5.2" fill="#14161A"/>
+  <circle cx="7.2" cy="7.4" r="3.1" fill="#F4F4F5"/>
+  <rect x="4.2" y="14.4" width="3.6" height="5.8" rx=".8" fill="#F4F4F5"/>
+  <rect x="10.2" y="10.6" width="3.6" height="9.6" rx=".8" fill="#F4F4F5"/>
+  <rect x="16.2" y="5.2" width="3.6" height="15" rx=".8" fill="#F4F4F5"/>
+</svg>

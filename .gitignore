@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+target/
+.venv/
+__pycache__/
+dist/
+build/
+
+# Tauri
+src-tauri/target/
+
+# Local data & secrets (never committed)
+*.db
+*.db-*
+*.sqlite
+.env
+.env.*
+secrets/
+.mm/
+*.pickle
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Vite / frontend build
+dist-ssr
+*.local
+
+# Audit screenshots hold real balances (never committed)
+docs/ux-audit-2026-10/shots/
+
+# brainstorm and plan-run scratch
+.superpowers/
+
+# The release ZIP is built by scripts/make-release.mjs, never committed
+release/
+
+# Notes stay local, never in git
+/SESSION.md
+/docs/*
+!/docs/images/
+/parity/
+/.dbcopy/
+/.playwright-mcp/
+/monarchmoney.log
