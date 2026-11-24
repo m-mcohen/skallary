@@ -54,7 +54,10 @@ function HelpLink({ entry, selected }: { entry: Entry; selected: boolean }) {
 export default function HelpSection({ selectedKey }: { selectedKey: string | null }) {
   const isGlossary = selectedKey === GLOSSARY_KEY;
   // An unknown or missing key opens on getting started rather than a blank body.
-  const screen = isGlossary ? null : helpByKey(selectedKey ?? "") ?? helpByKey(GETTING_STARTED_KEY);
+  // Old bookmarks to the articles that moved still open the right one.
+  const MOVED: Record<string, string> = { "budget.yearly": "recurring.yearly", recurring: "recurring.charges" };
+  const key = selectedKey ? MOVED[selectedKey] ?? selectedKey : "";
+  const screen = isGlossary ? null : helpByKey(key) ?? helpByKey(GETTING_STARTED_KEY);
   const activeKey = isGlossary ? GLOSSARY_KEY : screen?.key ?? null;
   const glossary = GLOSSARY.filter((t) => termShown(t.id)).sort((a, b) => a.term.localeCompare(b.term));
 

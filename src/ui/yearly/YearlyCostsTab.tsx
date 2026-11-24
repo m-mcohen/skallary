@@ -113,7 +113,7 @@ export default function YearlyCostsTab({ planId, onChanged }: { planId: string |
       }
       setError(null);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "The yearly costs could not be read.");
+      setError(e instanceof Error ? e.message : "The yearly bills could not be read.");
       setBills((b) => b ?? []);
     }
   }, [planId, year]);

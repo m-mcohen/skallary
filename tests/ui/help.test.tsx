@@ -100,6 +100,13 @@ describe("HelpSection (the manual in the sidebar)", () => {
     expect(links.map((l) => l.textContent).join("|")).not.toMatch(/Accounts: Balances|Accounts: Net worth/);
   });
 
+  test("old help bookmarks to the moved articles open them", () => {
+    const a = render(<HelpSection selectedKey="budget.yearly" />);
+    expect(a.getByRole("heading", { level: 2, name: "Recurring: Yearly bills" })).toBeTruthy();
+    a.unmount();
+    expect(render(<HelpSection selectedKey="recurring" />).getByRole("heading", { level: 2, name: "Recurring: Charges" })).toBeTruthy();
+  });
+
   test("the second route segment picks the article and marks it current", () => {
     const charts = helpByKey("budget.charts")!;
     const { getByRole, getByText } = render(<HelpSection selectedKey="budget.charts" />);
