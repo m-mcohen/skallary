@@ -92,7 +92,7 @@ export default function AppSidebar({ activeSection }: { activeSection: string })
     >
       <SidebarHeader className="px-3 py-3">
         <div className="flex items-center gap-2 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-          <img src="/favicon.svg" alt="" className="size-3.5 shrink-0 scheme-light dark:scheme-dark" />
+          <img src="/favicon.svg" alt="" className="size-6 shrink-0 scheme-light dark:scheme-dark" />
           <span className="truncate">Skallary</span>
         </div>
       </SidebarHeader>

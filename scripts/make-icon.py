@@ -6,13 +6,13 @@ The small ICO frames use pixel coordinates; larger images use favicon.svg.
 from io import BytesIO
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageDraw
 from resvg_py import svg_to_bytes
 
 
 # Each grid defines a lower kernel pair, an upper pair and one terminal grain.
 # The lower left kernel extends into the stem.
-SMALL_CUTOUTS = {
+SMALL_KERNELS = {
     16: [
         [(4, 12), (5, 10), (4, 9), (4, 7), (5, 7), (6, 8), (6, 10), (5, 12)],
         [(7, 11), (8, 9), (11, 8), (10, 10), (9, 11)],
@@ -56,21 +56,17 @@ PNG_SIZES = {
     "icon-256.png": 256,
     "icon-512.png": 512,
 }
-COIN = "#B77D31"
+WHEAT = "#B77D31"
 
 
 def small_icon(size: int) -> Image.Image:
-    # Draw a smooth circle with exact one-pixel outer bounds, then punch out
-    # the manually placed kernels on the final grid.
-    circle = Image.new("L", (size * 8, size * 8))
-    ImageDraw.Draw(circle).ellipse((8, 8, (size - 1) * 8 - 1, (size - 1) * 8 - 1), fill=255)
-    circle = circle.resize((size, size), Image.Resampling.BOX)
-    cutout = Image.new("L", (size, size))
-    draw = ImageDraw.Draw(cutout)
-    for kernel in SMALL_CUTOUTS[size]:
+    # Place the simplified kernels directly on the final pixel grid.
+    kernels = Image.new("L", (size, size))
+    draw = ImageDraw.Draw(kernels)
+    for kernel in SMALL_KERNELS[size]:
         draw.polygon(kernel, fill=255)
-    icon = Image.new("RGBA", (size, size), COIN)
-    icon.putalpha(ImageChops.subtract(circle, cutout))
+    icon = Image.new("RGBA", (size, size), WHEAT)
+    icon.putalpha(kernels)
     return icon
 
 
@@ -83,7 +79,7 @@ def main() -> None:
     public = Path(__file__).resolve().parent.parent / "public"
     svg = (public / "favicon.svg").read_text(encoding="utf-8")
     frames = [
-        small_icon(size) if size in SMALL_CUTOUTS else render(svg, size)
+        small_icon(size) if size in SMALL_KERNELS else render(svg, size)
         for size in ICO_SIZES
     ]
     frames[-1].save(
