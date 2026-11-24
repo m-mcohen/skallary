@@ -1,4 +1,4 @@
-// src/ui/yearly/YearlyCostsTab.tsx -- Budget, Yearly costs: the bills that come once or a few times a year, what is
+// src/ui/yearly/YearlyCostsTab.tsx -- Recurring, Yearly bills: the bills that come once or a few times a year, what is
 // raised for a month or a holiday, and the holiday calendars. Each bill shows this year's due dates with where it
 // stands in words, and the things you can do about it. Nothing here changes your budget until you press a button.
 // Registry search (2026-11-22, shadcnblocks, shadcn-studio, react-bits: "list", "dialog", "alert"): nothing fits a

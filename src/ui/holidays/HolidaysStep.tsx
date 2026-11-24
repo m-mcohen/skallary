@@ -1,5 +1,5 @@
 // src/ui/holidays/HolidaysStep.tsx -- the first-run interview's holidays step, and (as HolidayCalendars) the
-// Holiday calendars section of Budget, Yearly costs. Holidays place raises that depend on one: the built-in
+// Holiday calendars section of Recurring, Yearly bills. Holidays place raises that depend on one: the built-in
 // US national holidays can be switched on, and a calendar file (.ics) from any calendar app can be imported
 // for the rest. A calendar that is switched off is never used. Changes are saved as they are made.
 import { useCallback, useEffect, useRef, useState, type JSX } from "react";
@@ -148,7 +148,7 @@ export default function HolidaysStep({ onDone, onSkip }: SetupStepProps): JSX.El
       <p className="text-sm text-muted-foreground">
         Some yearly costs follow a holiday, like gifts or a trip. If you want to plan for those, switch on the US national
         holidays, or import a calendar file for the holidays you keep. If not, leave them off and press Next. You can change
-        this later in Budget, Yearly costs.
+        this later in Recurring, Yearly bills.
       </p>
       <HolidayCalendars />
       <StepActions onNext={onDone} onSkip={onSkip} />

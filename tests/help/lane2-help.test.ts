@@ -8,7 +8,7 @@ import { SHORT_HELP } from "../../src/help/screens/short";
 
 const dashboard = DASHBOARD_HELP[0];
 const all = SHORT_HELP.find((s) => s.key === "transactions.all")!;
-const recurring = SHORT_HELP.find((s) => s.key === "recurring")!;
+const recurring = SHORT_HELP.find((s) => s.key === "recurring.charges")!;
 const text = (x: unknown) => JSON.stringify(x);
 
 test("the Dashboard's numbers are explained in the order the screen shows them", () => {

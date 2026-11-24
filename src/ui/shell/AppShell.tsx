@@ -335,7 +335,8 @@ function MainShell() {
                 </div>
               )}
               {section === "reports" && (subPage?.page === "merchant" ? <MerchantPage /> : <ReportsSection />)}
-              {section === "recurring" && <BillsSection />}
+              {section === "recurring" && tabId === "charges" && <BillsSection />}
+              {section === "recurring" && tabId === "yearly" && <YearlyCostsTab planId={plan.planId} onChanged={plan.refresh} />}
               {section === "transactions" && (() => {
                 // The router strips the hash query from the tab, so a ledger
                 // link (a summed figure on another screen, clicked through to
@@ -366,8 +367,7 @@ function MainShell() {
                 <BudgetMonth planId={plan.planId} onChanged={plan.refresh} startSetup={hashQuery().get("setup") === "1"} />
               )}
               {section === "budget" && tabId === "year" && <BudgetYear planId={plan.planId} onChanged={plan.refresh} />}
-              {section === "budget" && tabId === "yearly" && <YearlyCostsTab planId={plan.planId} onChanged={plan.refresh} />}
-              {section === "budget" && tabId === "charts" && <Charts planId={plan.planId} />}
+                            {section === "budget" && tabId === "charts" && <Charts planId={plan.planId} />}
               {/* Forecast: the Runway screen, renamed; the component keeps its file name. */}
               {section === "forecast" && <RunwayOverview planId={plan.planId} scenario={plan.scenario} whatIf={plan.activeWhatIf} goals={plan.goals} salaryAssumptions={plan.salaryAssumptions} />}
               {section === "goals" && tabId === "goals" && <GoalsSection planId={plan.planId} onBudgetChanged={plan.refresh} onGoalsChanged={plan.refreshWhatIfs} />}

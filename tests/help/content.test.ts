@@ -42,7 +42,7 @@ describe("help coverage", () => {
   // Ui-look: Accounts' two tabs became one page, so 21 screens became 20.
   // C6: Settings gained an Appearance tab, so 20 became 21.
   // A6: Settings gained a Household tab, so 21 screens became 22.
-  // Budget gained a Yearly costs tab, so 22 screens became 23.
+  // Budget gained a Yearly costs tab, so 22 screens became 23. It then moved to Recurring, so the count stays.
   test("the app has 24 screens and every one has a help article", () => {
     const keys = navScreenKeys();
     expect(keys).toHaveLength(24);

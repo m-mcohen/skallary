@@ -40,11 +40,11 @@ describe("HelpPanel (the ? in the header)", () => {
 
   test("it stays open and follows you: moving to another screen swaps the article in place", async () => {
     const forecast = helpByKey("forecast")!;
-    const bills = helpByKey("recurring")!;
+    const bills = helpByKey("recurring.charges")!;
     const { getByRole, findByText, queryByText, rerender } = render(<HelpPanel sectionId="forecast" tabId={null} />);
     fireEvent.click(getByRole("button", { name: "Help for this screen" }));
     await findByText(forecast.purpose);
-    rerender(<HelpPanel sectionId="recurring" tabId={null} />);
+    rerender(<HelpPanel sectionId="recurring" tabId="charges" />);
     await findByText(bills.purpose);
     expect(queryByText(forecast.purpose)).toBeNull();
     // Pressing Help again closes it.
@@ -86,7 +86,7 @@ describe("HelpSection (the manual in the sidebar)", () => {
     // Budget: Year is a 21st screen.
     // Accounts' two tabs became one page, so 20 screens.
     // C6: Settings: Appearance makes 21.
-    // A6: Settings: Household makes 22, and Budget: Yearly costs 23.
+    // A6: Settings: Household makes 22, and Budget: Yearly costs 23, which moved to Recurring: Yearly bills (Recurring now has two tabs, so still 24).
     expect(links.length).toBe(24 + 1 + 2);
     expect(links.map((l) => l.textContent)).toEqual(expect.arrayContaining(["Settings: Merchants", "Reports: Merchant"]));
     expect(links.map((l) => l.textContent)).toContain("What if");

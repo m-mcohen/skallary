@@ -57,6 +57,12 @@ describe("NAV", () => {
     expect(resolveRoute({ section: "bills", tab: null }).item.id).toBe("recurring");
   });
 
+  test("the old Budget, Yearly costs link lands on Recurring, Yearly bills", () => {
+    const { item, tab } = resolveRoute({ section: "budget", tab: "yearly" });
+    expect(item.id).toBe("recurring");
+    expect(tab?.id).toBe("yearly");
+  });
+
   // Balances and Net worth became one page.
   test("Accounts is one page with no tabs; Net worth is not its own entry", () => {
     expect(findNav("networth")).toBeUndefined();

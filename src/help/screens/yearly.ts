@@ -1,10 +1,10 @@
-// Help for Budget, Yearly costs: bills that come once or a few times a year, raises, and holiday calendars.
+// Help for Recurring, Yearly bills: bills that come once or a few times a year, raises, and holiday calendars.
 import type { HelpScreen } from "../types";
 
 export const YEARLY_HELP: HelpScreen[] = [
   {
-    key: "budget.yearly",
-    title: "Budget: Yearly costs",
+    key: "recurring.yearly",
+    title: "Recurring: Yearly bills",
     depth: "short",
     purpose: "The bills that come once or a few times a year, and the raises you plan for a month or a holiday, so the budget sets money aside before they arrive.",
     answers: "Which yearly bills and raises is the budget planning for, and does any need an answer from you?",

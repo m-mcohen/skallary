@@ -268,8 +268,8 @@ export const SHORT_HELP: HelpScreen[] = [
     ],
   },
   {
-    key: "recurring",
-    title: "Recurring",
+    key: "recurring.charges",
+    title: "Recurring: Charges",
     depth: "short",
     purpose: "Which charges repeat and how often, what this month or next still has to come, what was already paid, and whether the budget plans for them. You can correct the list: Not recurring hides a charge, and Mark as recurring on Transactions adds one the app missed, as does ticking This repeats when you file a charge.",
     answers: "What is charged regularly, and what is still due this month?",

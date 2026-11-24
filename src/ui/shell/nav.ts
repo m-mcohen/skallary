@@ -88,12 +88,21 @@ export const NAV: NavItem[] = [
       // Month replaces the old Table; old #/budget/table links land here.
       { id: "month", label: "Month" },
       { id: "year", label: "Year" },
-      { id: "yearly", label: "Yearly costs" },
       { id: "charts", label: "Charts" },
     ],
   },
   // Bills became Recurring. Old links land here (ROUTE_ALIASES).
-  { id: "recurring", label: "Recurring", icon: CalendarClockIcon, group: "plan" },
+  {
+    id: "recurring",
+    label: "Recurring",
+    icon: CalendarClockIcon,
+    group: "plan",
+    tabs: [
+      { id: "charges", label: "Charges" },
+      // Yearly bills moved here from Budget (old #/budget/yearly links land here, see TAB_ALIASES).
+      { id: "yearly", label: "Yearly bills" },
+    ],
+  },
   {
     id: "goals",
     label: "Goals",
@@ -179,6 +188,11 @@ export const ROUTE_ALIASES: Record<string, Route> = {
   bills: { section: "recurring", tab: null },
 };
 
+/** Tabs that moved to another screen: "section.tab" to where it lives now. */
+export const TAB_ALIASES: Record<string, Route> = {
+  "budget.yearly": { section: "recurring", tab: "yearly" },
+};
+
 /**
  * Validate and repair a route.
  *
@@ -188,7 +202,7 @@ export const ROUTE_ALIASES: Record<string, Route> = {
  * something real rather than a blank body.
  */
 export function resolveRoute(original: Route): { item: NavItem; tab: NavTab | null } {
-  const route = ROUTE_ALIASES[original.section] ?? original;
+  const route = TAB_ALIASES[`${original.section}.${original.tab}`] ?? ROUTE_ALIASES[original.section] ?? original;
   const item = findNav(route.section) ?? findNav(DEFAULT_SECTION) ?? NAV[0];
   if (!item.tabs || item.tabs.length === 0) return { item, tab: null };
   const tab = item.tabs.find((t) => t.id === route.tab) ?? item.tabs[0];

@@ -1,6 +1,6 @@
 // src/ui/dashboard/YearlyHeadsUp.tsx -- the Dashboard's heads-up on yearly costs: what needs a look this month
 // and next (a bill to answer about, one that is late or part paid, a new amount, a holiday calendar running out,
-// a bill or raise coming). Nothing shows when there is nothing to look at. Each line opens Budget, Yearly costs
+// a bill or raise coming). Nothing shows when there is nothing to look at. Each line opens Recurring, Yearly bills
 // at that bill, raise or calendar.
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,9 +10,9 @@ import type { HeadsUpItem } from "../../domain/yearly-heads-up";
 import { getHeadsUpUI } from "../lib/db-yearly";
 
 export function headsUpHref(i: HeadsUpItem): string {
-  if (i.billId !== undefined) return `#/budget/yearly?bill=${i.billId}`;
-  if (i.raiseId !== undefined) return `#/budget/yearly?raise=${i.raiseId}`;
-  return `#/budget/yearly?calendar=${encodeURIComponent(i.calendarId ?? "")}`;
+  if (i.billId !== undefined) return `#/recurring/yearly?bill=${i.billId}`;
+  if (i.raiseId !== undefined) return `#/recurring/yearly?raise=${i.raiseId}`;
+  return `#/recurring/yearly?calendar=${encodeURIComponent(i.calendarId ?? "")}`;
 }
 
 export default function YearlyHeadsUp() {
@@ -26,7 +26,7 @@ export default function YearlyHeadsUp() {
   return (
     <Card data-testid="yearly-heads-up">
       <CardHeader>
-        <CardTitle>Yearly costs to look at</CardTitle>
+        <CardTitle>Yearly bills to look at</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="flex flex-col divide-y">

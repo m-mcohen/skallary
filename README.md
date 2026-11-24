@@ -116,9 +116,9 @@ After the first link, you can press **Sync** at the top of any screen to bring i
 
 ## Yearly bills and raises
 
-Some costs come once or a few times a year: car insurance, a water bill every three months, a membership. Others make one month cost more, like gifts in the holiday season. Open **Budget**, then the **Yearly costs** tab.
+Some costs come once or a few times a year: car insurance, a water bill every three months, a membership. Others make one month cost more, like gifts in the holiday season. Open **Recurring**, then the **Yearly bills** tab.
 
-![The Yearly costs screen](docs/images/yearly-costs.png)
+![The Yearly bills tab](docs/images/yearly-costs.png)
 
 - **Add a yearly bill.** Name it, pick the budget line it belongs to, and say the amount and the months it is due. The app plans for it in those months and marks it paid when it sees the payment in your bank.
 - **Add a raise.** A raise is extra money a budget line needs. Pick the line and the amount, then choose when: once in a month, every year in a month, or around a holiday. A raise tied to a holiday repeats every year and moves with the holiday's month by itself. A holiday that spans two months counts in the month it starts, unless you change that.
@@ -147,16 +147,16 @@ It is an estimate, not tax advice, and it will not match your return. State tax 
 
 Some of your costs follow holidays. The app knows holidays in two ways.
 
-- **US national holidays** are built in. They are the 11 federal holidays, and they come from fixed rules, so they never run out. Switch them on in the Holidays step, or later on the **Yearly costs** tab under "Holiday calendars".
+- **US national holidays** are built in. They are the 11 federal holidays, and they come from fixed rules, so they never run out. Switch them on in the Holidays step, or later on the **Yearly bills** tab of Recurring under "Holiday calendars".
 - **Any other calendar** comes from a file you choose. The app never goes online to fetch a calendar. It reads a file from your computer. The file must be an `.ics` file, which is the standard calendar file format. Each all-day entry in it becomes a named holiday on its date.
 
-![Holiday calendars on the Yearly costs screen](docs/images/holidays.png)
+![Holiday calendars on the Yearly bills tab](docs/images/holidays.png)
 
 ### Worked example: the Jewish holidays
 
 1. In your browser, go to https://www.hebcal.com, a free site for Jewish calendars. Find its holidays section and its option to download a calendar file. The site changes its layout from time to time, so look for words like "Download" and "iCalendar" or ".ics".
 2. Choose the holidays you want and a range of years that covers the next few years. Download the file. It ends in `.ics`.
-3. In the app, open **Budget**, then **Yearly costs**, and find **Holiday calendars**.
+3. In the app, open **Recurring**, then **Yearly bills**, and find **Holiday calendars**.
 4. Under **Import a calendar file**, type a name such as "Jewish holidays". Choose the `.ics` file you downloaded, then import it.
 5. The new calendar appears in the list with the dates it covers. Make sure its switch is on.
 6. Now add a raise and choose one of those holidays. It follows the holiday's date every year for as long as the file covers.
