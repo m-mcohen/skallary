@@ -78,7 +78,7 @@ function Brand() {
         onPointerCancel={cancel}
         onContextMenu={(e) => e.preventDefault()}
         onDragStart={(e) => e.preventDefault()}
-        className="flex min-w-0 cursor-default touch-none select-none items-center gap-2 bg-transparent p-0 text-left text-xs text-muted-foreground"
+        className="flex min-w-0 cursor-pointer touch-none select-none items-center gap-2 bg-transparent p-0 text-left text-xs text-muted-foreground"
       >
         <span className="relative size-6 shrink-0">
           {/* An image drags when the mouse moves during a press, which would cancel the hold. */}
@@ -92,7 +92,8 @@ function Brand() {
             <circle
               cx="16" cy="16" r="14.5" fill="none" stroke="var(--wheat-ring)" strokeWidth="2.5" strokeLinecap="round"
               pathLength={100} strokeDasharray="100"
-              style={{ strokeDashoffset: phase === "idle" ? 100 : 0, transition: ringTransition }}
+              // Hidden at rest: an empty dash with a rounded end still draws a dot at the top.
+              style={{ strokeDashoffset: phase === "idle" ? 100 : 0, transition: ringTransition, visibility: phase === "idle" ? "hidden" : "visible" }}
             />
           </svg>
         </span>

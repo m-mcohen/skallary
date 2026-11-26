@@ -141,6 +141,16 @@ describe("the wheat logo", () => {
     expect(show()).toBeNull();
   });
 
+  test("at rest the ring draws nothing, not even the dot of its rounded end", () => {
+    renderSidebar();
+    const circle = () => logo().querySelector("circle")!;
+    expect(circle().style.visibility).toBe("hidden");
+    fireEvent.pointerDown(logo());
+    expect(circle().style.visibility).toBe("visible");
+    fireEvent.pointerUp(logo());
+    expect(circle().style.visibility).toBe("hidden");
+  });
+
   test("the logo is not a keyboard stop", () => {
     renderSidebar();
     expect(logo().getAttribute("tabindex")).toBe("-1");
