@@ -23,6 +23,86 @@ import {
 
 import { GROUP_LABELS, NAV, type NavGroup, type NavItem } from "./nav";
 import { formatRoute, navigate } from "./router";
+import { useEffect, useRef, useState } from "react";
+import WhyOverlay from "@/why/WhyOverlay";
+
+/** Holding the sidebar wheat this long (milliseconds) plays the story of the name. */
+const WHY_HOLD_MS = 2000;
+/** Pulses of the ring once it fires (one a second), so it shows it worked, then stops. */
+const WHY_PULSES = 3;
+
+/**
+ * The wheat and the name. Looks like a label. Pressing and holding the wheat draws a ring around
+ * it; when the ring closes (two seconds) it pulses and the story of the name plays over the whole
+ * window (WhyOverlay). Letting go or sliding off before then cancels.
+ */
+function Brand() {
+  const [phase, setPhase] = useState<"idle" | "holding" | "done">("idle");
+  const [showing, setShowing] = useState(false);
+  // Two timers: letting go cancels only the hold, never the pulse that clears itself after firing.
+  const hold = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pulse = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stop = (t: typeof hold) => {
+    if (t.current) clearTimeout(t.current);
+    t.current = null;
+  };
+  const cancel = () => {
+    stop(hold);
+    setPhase((p) => (p === "holding" ? "idle" : p));
+  };
+  const start = () => {
+    stop(hold);
+    stop(pulse);
+    setPhase("holding");
+    hold.current = setTimeout(() => {
+      hold.current = null;
+      setPhase("done");
+      setShowing(true);
+      // The ring pulses WHY_PULSES times to show it fired, then clears.
+      pulse.current = setTimeout(() => { pulse.current = null; setPhase("idle"); }, WHY_PULSES * 1000);
+    }, WHY_HOLD_MS);
+  };
+  useEffect(() => () => { stop(hold); stop(pulse); }, []);
+  const reduceMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const ringTransition = phase === "holding" && !reduceMotion ? `stroke-dashoffset ${WHY_HOLD_MS}ms linear` : "stroke-dashoffset 150ms";
+  return (
+    <>
+      <button
+        type="button"
+        aria-label="Skallary"
+        // Not a keyboard stop: the show is a pointer-only easter egg.
+        tabIndex={-1}
+        onPointerDown={start}
+        onPointerUp={cancel}
+        onPointerLeave={cancel}
+        onPointerCancel={cancel}
+        onContextMenu={(e) => e.preventDefault()}
+        onDragStart={(e) => e.preventDefault()}
+        className="flex min-w-0 cursor-default touch-none select-none items-center gap-2 bg-transparent p-0 text-left text-xs text-muted-foreground"
+      >
+        <span className="relative size-6 shrink-0">
+          {/* An image drags when the mouse moves during a press, which would cancel the hold. */}
+          <img src="/favicon.svg" alt="" draggable={false} className="size-6 scheme-light dark:scheme-dark" />
+          {/* The ring: bronze in light mode, gold in dark; it draws while held and pulses when done. */}
+          <svg
+            aria-hidden
+            viewBox="0 0 32 32"
+            className={`pointer-events-none absolute -inset-1 size-8 -rotate-90 ${phase === "done" && !reduceMotion ? "animate-ping" : ""}`}
+          >
+            <circle
+              cx="16" cy="16" r="14.5" fill="none" stroke="var(--wheat-ring)" strokeWidth="2.5" strokeLinecap="round"
+              pathLength={100} strokeDasharray="100"
+              style={{ strokeDashoffset: phase === "idle" ? 100 : 0, transition: ringTransition }}
+            />
+          </svg>
+        </span>
+        <span className="truncate">Skallary</span>
+      </button>
+      {/* Outside the button: React passes a portal's presses up its tree, which would start another hold. */}
+      {showing && <WhyOverlay onClose={() => setShowing(false)} />}
+    </>
+  );
+}
 
 /**
  * SidebarProvider writes `sidebar_state` on every toggle but, with no SSR to
@@ -92,8 +172,7 @@ export default function AppSidebar({ activeSection }: { activeSection: string })
     >
       <SidebarHeader className="px-3 py-3">
         <div className="flex items-center gap-2 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-          <img src="/favicon.svg" alt="" className="size-6 shrink-0 scheme-light dark:scheme-dark" />
-          <span className="truncate">Skallary</span>
+          <Brand />
         </div>
       </SidebarHeader>
 

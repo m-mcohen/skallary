@@ -86,6 +86,8 @@
  * Wishlist, and Runway.
  */
 :root {
+    /* The ring drawn around the sidebar wheat while it is held: the logo's bronze here, its gold in dark mode. */
+    --wheat-ring: #8b581f;
     /* Warm off-white page background -- not pure #fff, softer than stark. */
     --background: #F3F2EF;   /* warm grey page; white cards sit on it (ui-look, after Monarch) */
     /* Near-black with a touch of warmth (not a flat neutral gray). */
@@ -162,6 +164,7 @@
 }
 
 .dark {
+    --wheat-ring: #e0ac53;
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);

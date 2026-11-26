@@ -13,6 +13,7 @@ import { rememberHouseholdPeople } from "../src/domain/account-display.js";
 import { drawableLiquidCents, computeRunway } from "../src/domain/runway.js";
 import type { ForecastResult, Goal, GoalAccountLink, WishlistItem } from "../src/domain/plan-types.js";
 import { APP_USAGE, isRefusal, runAppVerb } from "./app-verbs.js";
+import { runWhy } from "./why.js";
 
 import { OlderDatabaseError } from "../src/data/migrate.node.js";
 
@@ -87,6 +88,12 @@ Against the database file itself (the app need not run; --db <path> for another 
   finance runway <planId> [--db <path>] [--json]`;
 
 const [cmd, sub, ...rest] = process.argv.slice(2);
+
+// Not in the usage text on purpose.
+if (cmd === "why") {
+  await runWhy();
+  process.exit(0);
+}
 
 // The app verbs first (cli/app-verbs.ts): they talk to the running app, as the screens do.
 let handledByApp = false;
